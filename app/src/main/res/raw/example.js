@@ -230,23 +230,51 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     LiquidCore
   } = _$$_REQUIRE(_dependencyMap[0]);
 
-  const {
-    suma
-  } = _$$_REQUIRE(_dependencyMap[1]);
-
-  const {
-    subtraction
-  } = _$$_REQUIRE(_dependencyMap[2]);
-
-  const {
-    product
-  } = _$$_REQUIRE(_dependencyMap[3]);
-
   setInterval(() => {}, 1000);
+
+  class Rectangulo {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.pintarLados();
+    }
+
+    pintarLados() {
+      console.log(this.x + this.y);
+    }
+
+  }
+
+  class A {
+    constructor() {
+      this.B = class {
+        echo() {
+          console.log('I am B class');
+        }
+
+      };
+    }
+
+    echo() {
+      this.b = new this.B();
+      this.b.echo();
+    }
+
+  }
+
+  LiquidCore.on('init_flexx_agent', () => {
+    var welcome = new Rectangulo(5, 3);
+    var aExternal = new A();
+    LiquidCore.emit('flexxTest', {
+      resultTestFlexx: aExternal.echo()
+    });
+    process.exit(0);
+  });
   LiquidCore.on('sum', inputNumbers => {
     LiquidCore.emit('sumResult', {
-      resultSum: suma(inputNumbers)
+      resultSum: Rectangulo().pintarLados()
     });
+    LiquidCore.emit('sumResponse', {});
     process.exit(0);
   });
   LiquidCore.on('subtraction', inputNumbers => {
@@ -262,7 +290,7 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
     process.exit(0);
   });
   LiquidCore.emit('ready');
-},0,[1,5,6,7]);
+},0,[1]);
 __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
   "use strict";
 
@@ -388,58 +416,4 @@ __d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, e
 
   module.exports = LiquidCore.require('path');
 },4,[]);
-__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
-  "use strict";
-
-  function suma(inputNumbers) {
-    var result = 0;
-
-    for (let prop in inputNumbers) {
-      console.log(result);
-      result = result + inputNumbers[prop];
-    }
-
-    return result;
-  }
-
-  module.exports = {
-    suma
-  };
-},5,[]);
-__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
-  "use strict";
-
-  function subtraction(inputNumbers) {
-    var result = 0;
-
-    for (let prop in inputNumbers) {
-      console.log(result);
-      result = inputNumbers[prop] - result;
-    }
-
-    return result;
-  }
-
-  module.exports = {
-    subtraction
-  };
-},6,[]);
-__d(function (global, _$$_REQUIRE, _$$_IMPORT_DEFAULT, _$$_IMPORT_ALL, module, exports, _dependencyMap) {
-  "use strict";
-
-  function product(inputNumbers) {
-    var result = 1;
-
-    for (let prop in inputNumbers) {
-      console.log(result);
-      result = inputNumbers[prop] * result;
-    }
-
-    return result;
-  }
-
-  module.exports = {
-    product
-  };
-},7,[]);
 __r(0);
